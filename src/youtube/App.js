@@ -15,13 +15,14 @@ export default function App() {
     function fetchVideos() {
         setLoading(true);
         Axios.get(
-            `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${search}&maxResults=10&key=AIzaSyAensJVenBwm0ntQv0UBV0rTnT_4fAjnkA`
+            `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${search}&maxResults=10&key=${process.env.REACT_APP_API}`
         )
             .then((res) => {
                 const getVideos = res.data.items.filter((item) => item.id.kind.includes("video"));
                 if (getVideos.length > 0) {
                     setVideos(getVideos);
                     setActiveVideo(getVideos[0]);
+                    console.log(process.env.REACT_APP_API);
                 }
 
                 setLoading(false);
